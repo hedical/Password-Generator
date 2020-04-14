@@ -2,64 +2,84 @@
 // var generateBtn = document.querySelector("#generate");
 
 
-// Input from user
-// var pwdLength = 9; // de 8 jusqu'à 128
-// var lowerCaseChar = true;
-// var upperCaseChar = false;
-// var numChar = false;
-// var specialChar = false;
-
-// list of char to use
+// # List of char to use
 var lowerLetter = "abcdefghijklmnopqrstuvwxyz";
 var upperLetter = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 var num = "1234567890";
 var special = "!:/+=)'(&#$.%;<>?*@^_£";
 var totalChar = lowerLetter + upperLetter + num + special;
 
+
 // Output
-var password = '';
+// var password = '';
 
-// Function to get user inputs
+// # Function to get user inputs
 
-function getUserInputs() {
-  var pwdLength = prompt("Set a password lenght between 8 and  128");
-  var lowerCaseChar = confirm("Do you want to use lower case in your password ?")
-  var upperCaseChar = confirm("Do you want to use upper case in your password ?")
-  var numChar = confirm("Do you want to use num in your password ?")
-  var specialChar = confirm("Do you want to use special in your password ?")
-  var userInputs = [pwdLength, lowerCaseChar, upperCaseChar, numChar, specialChar];
+// ## Function to get password length from user
+function getUserInputPwd() {
 
+  var pwdLength = parseInt(prompt("Set a password lenght between 8 and  128"));
+  // Verifying condition : password length is between 8 and 128
   if (pwdLength < 8 || pwdLength > 128) {
     alert("You have to chose a password lenght between 8 and 128 characters");
-  } else if (lowerCaseChar == false || upperCaseChar == false || numChar == false || specialChar == false) {
-    alert("You have to use at least on type of characters");
-  } else {
-    alert("Password length: " + pwdLength + "\nLower case: " + lowerCaseChar + "\nUpper case: " + upperCaseChar);
-    return userInputs;
   }
+  return pwdLength;
 }
 
-getUserInputs()
-console.log(getUserInputs());
+var pwdAnswer = getUserInputPwd();
+
+// ## Function to get password string
+function getUserInputString() {
+
+  var lowerCaseAnwser = confirm("Do you want to use lower case in your password ?")
+  var upperCaseAnswer = confirm("Do you want to use upper case in your password ?")
+  var numAnswer = confirm("Do you want to use num in your password ?")
+  var specialAnswer = confirm("Do you want to use special in your password ?")
+  var inputResult = "";
+  var userInputsChar = [lowerCaseAnwser, upperCaseAnswer, numAnswer, specialAnswer];
+
+  // Verifying conditions : at least one type of char
+  if (lowerCaseAnwser === false && upperCaseAnswer === false && numAnswer === false && specialAnswer === false) {
+    alert("You have to use at least on type of characters");
+  }
+  // Generating the final array to use
+  else if (lowerCaseAnwser === true) {
+    inputResult += lowerLetter;
+    console.log(inputResult);
+  }
+  if (upperCaseAnswer === true) {
+    inputResult += upperLetter;
+    console.log(inputResult);
+  }
+  if (numAnswer === true) {
+    inputResult += num;
+    console.log(inputResult);
+  }
+  if (specialAnswer === true) {
+    inputResult += special;
+    console.log(inputResult);
+  }
+  // Sum up of chosen char
+  alert("Password length: " + pwdAnswer + "\nLower case: " + lowerCaseAnwser + "\nUpper case: " + upperCaseAnswer + "\nNum case: " + numAnswer + "\nSpecial case: " + specialAnswer);
+  return inputResult;
+}
+
+var result = getUserInputString();
 
 
-// Function  to generate the password
-function generatePwd(num1, arr1) { // num1 is the pwdLength set by the user, arr1 is our array to use, in that case : lower, upper, special, numbers ...
+// # Function  to generate the password
+function generatePwd(num1, userArraySelection) { // num1 is the pwdLength set by the user, userArraySelection is the array string from user
 
   for (i = 0; i < num1; i++) {
     var char = Math.floor(Math.random() * totalChar.length);
     console.log(char);
-    password += arr1.charAt(char);
+    password += userArraySelection.charAt(char);
   }
-  // if (num1 < 8 || num1 > 128) {
-  //   alert("You have to chose a password lenght between 8 and 128 characters");
-  // } else if (lowerCaseChar == false || upperCaseChar == false || numChar == false || specialChar == false) {
-  //   alert("You have to use at least on type of characters");
-  // } else
-  return password
+  return password;
 }
 
-console.log(generatePwd(pwdLength, lowerLetter + upperLetter + num + special));
+generatePwd(pwdAnswer, result);
+console.log(generatePwd(pwdAnswer, result));
 
 
 // // Write password to the #password input
