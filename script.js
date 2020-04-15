@@ -1,5 +1,5 @@
 // Assignment Code
-// var generateBtn = document.querySelector("#generate");
+var generateBtn = document.querySelector("#generate");
 
 
 // # List of char to use
@@ -11,7 +11,8 @@ var totalChar = lowerLetter + upperLetter + num + special;
 
 
 // Output
-// var password = '';
+var password = '';
+
 
 // # Function to get user inputs
 
@@ -31,10 +32,10 @@ var pwdAnswer = getUserInputPwd();
 // ## Function to get password string
 function getUserInputString() {
 
-  var lowerCaseAnwser = confirm("Do you want to use lower case in your password ?")
-  var upperCaseAnswer = confirm("Do you want to use upper case in your password ?")
-  var numAnswer = confirm("Do you want to use num in your password ?")
-  var specialAnswer = confirm("Do you want to use special in your password ?")
+  var lowerCaseAnwser = confirm("Do you want to use lower case in your password ?");
+  var upperCaseAnswer = confirm("Do you want to use upper case in your password ?");
+  var numAnswer = confirm("Do you want to use num in your password ?");
+  var specialAnswer = confirm("Do you want to use special in your password ?");
   var inputResult = "";
   var userInputsChar = [lowerCaseAnwser, upperCaseAnswer, numAnswer, specialAnswer];
 
@@ -68,28 +69,29 @@ var result = getUserInputString();
 
 
 // # Function  to generate the password
-function generatePwd(num1, userArraySelection) { // num1 is the pwdLength set by the user, userArraySelection is the array string from user
-
+function generatePassword(num1, arr1) { // num1 is the pwdLength set by the user, userArraySelection is the array string from user
+  var passwordGenerate = "";
   for (i = 0; i < num1; i++) {
     var char = Math.floor(Math.random() * totalChar.length);
     console.log(char);
-    password += userArraySelection.charAt(char);
+    passwordGenerate = passwordGenerate + arr1.charAt(char);
+    console.log(passwordGenerate);
   }
-  return password;
+  return passwordGenerate;
 }
 
-generatePwd(pwdAnswer, result);
-console.log(generatePwd(pwdAnswer, result));
+generatePassword(pwdAnswer, result);
+// console.log(generatePassword(pwdAnswer, result));
 
 
-// // Write password to the #password input
-// function writePassword() {
-//   var password = generatePassword();
-//   var passwordText = document.querySelector("#password");
+// Write password to the #password input
+function writePassword() {
+  var password = generatePassword(pwdAnswer, result);
+  var passwordText = document.querySelector("#password");
 
-//   passwordText.value = password;
+  passwordText.value = password;
 
-// }
+}
 
-// // Add event listener to generate button
-// generateBtn.addEventListener("click", writePassword);
+// Add event listener to generate button
+generateBtn.addEventListener("click", writePassword);
